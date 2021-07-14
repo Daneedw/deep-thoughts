@@ -49,8 +49,9 @@ const resolvers = {
     },
     addUser: async (parent, args) => {
       const user = await User.create(args);
-    
-      return user;
+      
+      const token = signToken(user);
+      return { token, user };
     },
     addThought: async (parent, args, context) => {
       if (context.user) {
